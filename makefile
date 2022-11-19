@@ -10,6 +10,6 @@ libmemo.o: libmemo.c memo.h
 
 
 clean:
-	rm -f *.o 
+	del *.o *.exe
 	
 

@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include"memo.h"
+#include<string.h>
 
 int main(int argc, char *argv[])
 {    
