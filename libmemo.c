@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
+#include<stdbool.h>
 
 #include"memo.h"
 
@@ -118,16 +119,27 @@ void delete_entry(char *str)
     char buffer[MAX_LINE];
     int i;
     char temp_arr[20];
+    bool keep_reading =true;
 
     //checking for error opening
     if(file==NULL)
     {
         printf("Error to open file.\n");
     }
-
-    while(!feof(file))
-    {
+    
+    
+    
+    do{
+        //reading file line by line
         fgets(buffer,MAX_LINE,file);
+
+        //checking for end of file
+        if(feof(file))
+        {
+            keep_reading=false; 
+        }
+        else
+        { 
         //making a new array  from buffer till frist ','
         for(i=0;buffer[i+1]==',';i++)
         {
@@ -139,7 +151,11 @@ void delete_entry(char *str)
             //writing in temp file which are not same
             fprintf(temp,"%s",buffer);
         }
-    }
+        }
+
+        
+    }while (keep_reading);
+ 
         
     //closing file
     fclose(file);
@@ -164,17 +180,31 @@ void search_function(char *str)
     {
         printf("Error to open file.");
     }
-    while(!feof(file))
-    {   //reading line by line 
+    bool keep_reading =true;
+    
+    
+    do{
+        //reading file line by line
         fgets(buffer,MAX_LINE,file);
-        //checking buffer string with the given string
-        //if it is not NULL then printing it in terminal
-        if(strstr(buffer,str)!=NULL)
+        
+        ////checking for end of file
+        if(feof(file))
         {
-            printf("%s",buffer);
+            keep_reading=false; 
         }
-    }
-    //closing the file
+        else
+        {   //comparing buffer with given string and
+            // if it same then printing whole string in terminal
+            if((strstr(buffer,str)!=NULL))
+            {
+                printf("%s",buffer);
+            }
+
+        }
+
+        
+    }while (keep_reading);
+  
     fclose(file);
 }
 
