@@ -6,6 +6,7 @@
 
 #include"memo.h"
 
+char *file_name1;
 
 void help_function(char *str)
 {
@@ -28,31 +29,60 @@ fclose(file);
 }
 
 
-void new_database(char *str)
+char *new_database(char *str)
 {
-    //Opening file in write mode
-   FILE *fp;
-   fp= fopen(str,"w");
-   
+   FILE *name_file, *data_file;
+    name_file=fopen("name_file.txt","a+");
 
-    //checking file opening
-    if (fp == NULL)
+    char file_name[30];
+    char option;
+   
+    while(!feof(name_file))
     {
-        printf("Error to open the file.");
-       
-    }
-   
-   //closing file
-    
-   fclose(fp);
+       fscanf(name_file,"%s",file_name);
+        
+        if(strcmp(file_name,str)==0)
+        {
+             
+            break;
 
+        }
+           
+    }
+
+    if(strcmp(file_name,str)==0)
+    {
+        printf("file is already exist over write [y n]: ");
+        scanf(" %c",&option);
+        if(option=='y')
+        {
+            data_file=fopen(str,"w");
+            fclose(data_file);
+            
+        }
+        else
+        {
+            printf("Enter the file name: ");
+            scanf(" %s",str);
+            new_database(str);
+        }
+    }
+    else
+    {
+        data_file= fopen(str,"w");
+        fprintf(name_file,"%s\n",str);
+        fclose(data_file);
+    }
+    //file_name1=str;
+    fclose(name_file);
+return str;
  }
 
 
  void append_in_darabase(char *str)
  {  //Opening file in read and append mode
     FILE *file;
-    file=fopen("memo.csv","a+");
+    file=fopen(file_name1,"a+");
     int id,i;
     char buffer[MAX_LINE];
     char c_id[MAX_LINE];

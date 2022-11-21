@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     char a_string[3]= "-a";
     char s_string[3]= "-s";
     char d_string[3]="-d";
+    char *file_name;
 
     // checking giving parameter
     if(argc<2 || argc>3)
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
     else if((strcmp(argv[1],i_string))==0)
     {
         
-        new_database(argv[2]);
+       file_name = new_database(argv[2]);
     }
     else if((strcmp(argv[1],a_string))==0)
     {
